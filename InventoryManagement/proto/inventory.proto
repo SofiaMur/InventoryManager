@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package inventory;
+
+option go_package = "./proto";
+
+import "google/protobuf/timestamp.proto";
+
+message Product {
+    string id = 1;
+    string name = 2;
+    int32 quantity = 3;
+}
+
+message StockChange {
+    string productId = 1;
+    int32 delta = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+
+message AddProductRequest {
+    Product product = 1;
+}
+
+message AddProductResponse {
+    string id = 1;
+}
+
+message GetProductRequest {
+    string id = 1;
+}
+
+message GetProductResponse {
+    Product product = 1;
+}
+
+message UpdateStockRequest {
+    StockChange change = 1;
+}
+
+message UpdateStockResponse {
+    Product product = 1;
+}
+
+message RemoveProductRequest {
+    string id = 1;
+}
+
+message RemoveProductResponse {
+    string message = 1;
+}
+
+message ListProductsRequest {} 
+
+message ListProductsResponse {
+    repeated Product products = 1;
+}
+
+message StockAlert {
+    string productId = 1;
+    string message = 2;
+}
+
+service InventoryService {
+    rpc AddProduct (AddProductRequest) returns (AddProductResponse);
+    rpc GetProduct (GetProductRequest) returns (GetProductResponse);
+    rpc UpdateStock (UpdateStockRequest) returns (UpdateStockResponse);
+    rpc RemoveProduct (RemoveProductRequest) returns (RemoveProductResponse);
+    rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
+    rpc StreamStockAlerts (ListProductsRequest) returns (stream StockAlert);
+}
