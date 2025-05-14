@@ -14,7 +14,7 @@
 ```
 InventoryManagement/
 ├── proto/
-│   ├── inventory.proto   # Определение gRPC-сервисов и сообщений
+│   ├── inventory_grpc.pb.go   # Определение gRPC-сервисов и сообщений
 │   ├── inventory.pb.go   # Сгенерированный код для структур и сообщений
 │   └── inventory.proto   # Описание gRPC-сервисов, сообщений и их структуры
 ├── client.go             # Реализация gRPC-клиента, который взаимодействует с сервером
